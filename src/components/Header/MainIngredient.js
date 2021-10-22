@@ -18,16 +18,16 @@ export default function MainIngredient({ controls }) {
     const [error, setLocalError] = React.useState(null);
 
     React.useEffect(() => {
-        if (!ingredients.length) {
-            getIngredients().then(res => res.json())
-                .then(data => {
-                    const list = data.meals.map(item => ({ label: item.strIngredient }));
-                    setIngredients(list);
-                    setLocalError(null);
-                })
-                .catch(setLocalError)
-        }
-    }, [])
+        if (ingredients.length) return;
+
+        getIngredients().then(res => res.json())
+            .then(data => {
+                const list = data.meals.map(item => ({ label: item.strIngredient }));
+                setIngredients(list);
+                setLocalError(null);
+            })
+            .catch(setLocalError)
+    }, [ingredients.length, setIngredients]);
 
     const changeHandler = (_, selected) => {
         const value = selected?.label;

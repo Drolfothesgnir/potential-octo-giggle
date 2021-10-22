@@ -18,16 +18,16 @@ export default function Category({ controls }) {
     const [error, setLocalError] = React.useState(null);
 
     React.useEffect(() => {
-        if (!categories.length) {
-            getCategories().then(res => res.json())
-                .then(data => {
-                    const list = data.meals.map(item => ({ label: item.strCategory }));
-                    setCategories(list);
-                    setLocalError(null);
-                })
-                .catch(setLocalError)
-        }
-    }, [])
+        if (categories.length) return;
+
+        getCategories().then(res => res.json())
+            .then(data => {
+                const list = data.meals.map(item => ({ label: item.strCategory }));
+                setCategories(list);
+                setLocalError(null);
+            })
+            .catch(setLocalError)
+    }, [categories.length, setCategories]);
 
     const changeHandler = (_, selected) => {
         const value = selected?.label;

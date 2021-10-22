@@ -13,7 +13,7 @@ export default function Row({ row }) {
         <Wrapper>
             <header>
                 <div className="img-wrapper">
-                    <img src={row.thumbnail} />
+                    <img src={row.thumbnail} alt={row.name} />
                 </div>
                 <IconButton
                     className="toggle"
