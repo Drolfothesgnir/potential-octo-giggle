@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './components/Header/index';
 import Table from './components/Table/Index';
 import Form from './components/Form';
+import ErrorMessage from './components/ErrorMessage';
 
 function App() {
   const ingredientControls = React.useState([]);
@@ -16,15 +17,21 @@ function App() {
     loadingControls,
     errorControls,
     categoryControls,
-    ingredientControls
-  }
+    ingredientControls,
+  };
+
+  const [error, setError] = errorControls;
+
+  const handleClose = () => {
+    setError(null);
+  };
 
   return (
     <>
       <Header controls={controls} />
       <Table controls={controls} />
       <Form controls={controls} />
-      {errorControls[0]?.message}
+      <ErrorMessage open={!!error} handleClose={handleClose} message={error?.message} />
     </>
   );
 }

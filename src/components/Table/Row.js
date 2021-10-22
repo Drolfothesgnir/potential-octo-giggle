@@ -7,43 +7,43 @@ import Collapse from '@mui/material/Collapse';
 import styled from '@emotion/styled';
 
 export default function Row({ row }) {
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
-    return (
-        <Wrapper>
-            <header>
-                <div className="img-wrapper">
-                    <img src={row.thumbnail} alt={row.name} />
-                </div>
-                <IconButton
-                    className="toggle"
-                    size="small"
-                    onClick={() => setOpen(!open)}
-                >
-                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                </IconButton>
-                <Typography variant="h6" className="name">
-                    {row.name}
-                </Typography>
-            </header>
-            <Collapse in={open} className="collapse">
-                <div className="description">
-                    <Typography variant="h6" className="label">
-                        Description
-                    </Typography>
-                    <Typography variant="body1">
-                        {row.description}
-                    </Typography>
-                    <Typography variant="h6" className="label">
-                        Ingredients
-                    </Typography>
-                    <Typography variant="body1">
-                        {row.ingredients}
-                    </Typography>
-                </div>
-            </Collapse>
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+      <header>
+        <div className="img-wrapper">
+          <img src={row.thumbnail} alt={row.name} />
+        </div>
+        <IconButton
+          className="toggle"
+          size="small"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+        </IconButton>
+        <Typography variant="h6" className="name">
+          {row.name}
+        </Typography>
+      </header>
+      <Collapse in={open} className="collapse">
+        <div className="description">
+          <Typography variant="h6" className="label">
+            Description
+          </Typography>
+          <Typography variant="body1">
+            {row.description}
+          </Typography>
+          <Typography variant="h6" className="label">
+            Ingredients
+          </Typography>
+          <Typography variant="body1">
+            {row.ingredients}
+          </Typography>
+        </div>
+      </Collapse>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
