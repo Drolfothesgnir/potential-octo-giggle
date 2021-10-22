@@ -8,7 +8,6 @@ import { getMealsByPartialMatch } from '../../requests';
 import { parseMeal } from '../../utils';
 
 export default function PartialMatch({ controls }) {
-
     const {
         loadingControls: [loading, setLoading],
         mealControls: [, setMeals],
@@ -16,7 +15,7 @@ export default function PartialMatch({ controls }) {
     } = controls;
 
     const [searchStr, setSearchStr] = React.useState('');
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         setLoading(true);

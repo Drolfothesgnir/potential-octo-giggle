@@ -36,13 +36,10 @@ export default function Form({ controls }) {
 
         if (file) {
             const reader = new FileReader();
-
             reader.readAsDataURL(file);
-
             reader.onloadend = () => {
                 setDataURL(reader.result);
             }
-
             changeHandler(event);
         }
     }
@@ -55,7 +52,6 @@ export default function Form({ controls }) {
             ingredients,
             thumbnail: dataURL,
         }
-        console.log(recipe);
 
         setMeals(prev => ([recipe, ...prev]));
     }

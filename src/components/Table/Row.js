@@ -4,7 +4,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Collapse from '@mui/material/Collapse';
-import styled  from '@emotion/styled';
+import styled from '@emotion/styled';
 
 export default function Row({ row }) {
     const [open, setOpen] = React.useState(false);

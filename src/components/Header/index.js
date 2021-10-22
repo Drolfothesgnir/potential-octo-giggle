@@ -17,13 +17,9 @@ const CATEGORY = 1;
 const MAIN_INGREDIENT = 2;
 
 export default function Header({ controls }) {
-
     const [filterType, setFilterType] = React.useState(PARTIAL_MATCH);
-
     const handleChange = e => setFilterType(+e.target.value);
-
     let filter = null;
-
     switch (filterType) {
         case PARTIAL_MATCH:
             filter = <PartialMatch controls={controls} />

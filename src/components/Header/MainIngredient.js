@@ -31,42 +31,34 @@ export default function MainIngredient({ controls }) {
 
     const changeHandler = (_, selected) => {
         const value = selected?.label;
-        if (!value) {
-            return;
-        }
+        if (!value) return;
 
         setLoading(true);
         getMealsByMainIngredient(value).then(res => res.json())
-        .then(data => {
-            return Promise.all(data.meals.map(meal => getMealsById(meal.idMeal).then(res => res.json())))
-        })
-        .then(arr => arr.map(data => data.meals[0]))
-        .then(data => {
-            setMeals((data || []).map(parseMeal));
-            setError(null);
-        })
-        .catch(setError)
-        .finally(() => setLoading(false));
+            .then(data => {
+                return Promise.all(data.meals.map(meal => getMealsById(meal.idMeal).then(res => res.json())))
+            })
+            .then(arr => arr.map(data => data.meals[0]))
+            .then(data => {
+                setMeals((data || []).map(parseMeal));
+                setError(null);
+            })
+            .catch(setError)
+            .finally(() => setLoading(false));
     }
 
-    if (ingredients.length) {
-        return (
-            <Autocomplete
-                size="small"
-                options={ingredients}
-                renderInput={params => <TextField {...params} placeholder="Choose ingredient" />}
-                sx={{ width: 300 }}
-                onChange={changeHandler}
-                disabled={loading}
-            />
-        )
-    }
+    if (ingredients.length) return (
+        <Autocomplete
+            size="small"
+            options={ingredients}
+            renderInput={params => <TextField {...params} placeholder="Choose ingredient" />}
+            sx={{ width: 300 }}
+            onChange={changeHandler}
+            disabled={loading}
+        />
+    )
 
-    if (error) {
-        return (
-            error.message
-        )
-    }
+    if (error) return error.message;
 
     return (
         <Box sx={{ display: 'flex', minWidth: 100, justifyContent: 'center' }}>
