@@ -1,4 +1,4 @@
-export function parseMeal(meal) {
+export default function parseMeal(meal) {
   const ingredients = [];
   let i = 1;
   while (meal[`strIngredient${i}`]) {

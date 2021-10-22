@@ -4,13 +4,13 @@ import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-import { getCategories, getMealsByCategory, getMealsById } from '../../requests';
-import { parseMeal } from '../../utils';
+import { getIngredients, getMealsById, getMealsByMainIngredient } from '../../requests';
+import parseMeal from '../../utils';
 import ErrorMessage from '../ErrorMessage';
 
-export default function Category({ controls }) {
+export default function MainIngredient({ controls }) {
   const {
-    categoryControls: [categories, setCategories],
+    ingredientControls: [ingredients, setIngredients],
     loadingControls: [loading, setLoading],
     mealControls: [, setMeals],
     errorControls: [, setError],
@@ -20,26 +20,30 @@ export default function Category({ controls }) {
   const [localLoading, setlocalLoading] = React.useState(false);
 
   React.useEffect(() => {
-    if (categories.length) return;
+    if (ingredients.length) return;
 
     setlocalLoading(true);
-    getCategories().then((res) => res.json())
+    getIngredients().then((res) => res.json())
       .then((data) => {
-        const list = data.meals.map((item) => ({ label: item.strCategory }));
-        setCategories(list);
+        const list = data.meals.map((item) => ({ label: item.strIngredient }));
+        setIngredients(list);
         setLocalError(null);
       })
       .catch(setLocalError)
       .finally(() => setlocalLoading(false));
-  }, [categories.length, setCategories]);
+  }, [ingredients.length, setIngredients]);
 
   const changeHandler = (_, selected) => {
     const value = selected?.label;
     if (!value) return;
 
     setLoading(true);
-    getMealsByCategory(value).then((res) => res.json())
-      .then((data) => Promise.all(data.meals.map((meal) => getMealsById(meal.idMeal).then((res) => res.json()))))
+    getMealsByMainIngredient(value).then((res) => res.json())
+      .then((data) => Promise.all(
+        data.meals
+          .map((meal) => getMealsById(meal.idMeal)
+            .then((res) => res.json())),
+      ))
       .then((arr) => arr.map((data) => data.meals[0]))
       .then((data) => {
         setMeals((data || []).map(parseMeal));
@@ -53,12 +57,12 @@ export default function Category({ controls }) {
     setLocalError(null);
   };
 
-  if (categories.length) {
+  if (ingredients.length) {
     return (
       <Autocomplete
         size="small"
-        options={categories}
-        renderInput={(params) => <TextField {...params} placeholder="Choose category" />}
+        options={ingredients}
+        renderInput={(params) => <TextField {...params} placeholder="Choose ingredient" />}
         sx={{ width: 300 }}
         onChange={changeHandler}
         disabled={loading}

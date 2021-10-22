@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 
 import { getMealsByPartialMatch } from '../../requests';
-import { parseMeal } from '../../utils';
+import parseMeal from '../../utils';
 
 export default function PartialMatch({ controls }) {
   const {

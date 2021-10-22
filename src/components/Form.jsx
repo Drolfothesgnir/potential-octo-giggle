@@ -21,7 +21,9 @@ export default function Form({ controls }) {
     photo: '',
   });
 
-  const [dataURL, setDataURL] = React.useState(null);
+  const [dataURL, setDataURL] = React.useState(
+    null,
+  );
 
   const changeHandler = (event) => {
     setValues((prev) => ({
